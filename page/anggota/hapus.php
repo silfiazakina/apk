@@ -1,16 +1,22 @@
 <?php
-if ($currentUser['level'] != 1) {
-    echo "<script>window.location = 'index.php?alert=err2';</script>";
-    exit;
+include("../../database/koneksi.php");
+include("../../database/class/anggota.php");
+
+if (empty($_GET['id_anggota'])) {
+    echo "<script>window.location.href = 'index.php?page=anggota'</script>";
+    exit();
 }
 
-$pdo = Koneksi::connect();
-$anggota= Anggota::getInstance($pdo);
 
-$id_anggota = isset($_GET['id_anggota']) ? $_GET['id_anggota'] : null;
+$id_anggota = $_GET['id_anggota'];
+$pdo = koneksi::connect();
+$anggota = anggota::getInstance($pdo);
+$result = $anggota->hapus($id_anggota);
 
-if ($id_anggota && $anggota->hapus($id_anggota)) {
-    echo "<script>window.location.href = 'index.php?page=anggota&alert=hapus'</script>";
+if ($result) {
+    echo "<script>window.location.href = 'index.php?page=anggota'</script>";
+    exit();
 } else {
-    echo "Gagal menghapus pegawai.";
+    echo "Terjadi kesalahan saat menghapus data.";
 }
+?>

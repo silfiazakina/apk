@@ -27,7 +27,7 @@
                 <tbody>
                 <?php
                         include("../../database/koneksi.php");
-                        include("../../class/penerbit.php");
+                        include("../../database/class/penerbit.php");
                         $pdo = koneksi::connect();
                         $penerbit = penerbit::getInstance($pdo);
                         $dataPenerbit = $penerbit->getAll();

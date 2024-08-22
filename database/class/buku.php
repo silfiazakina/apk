@@ -1,6 +1,6 @@
 <?php
 
-class buku
+class Buku
 {
     private $db;
     private static $instance = null;
@@ -13,12 +13,12 @@ class buku
     public static function getInstance($pdo)
     {
         if (self::$instance == null) {
-            self::$instance = new buku($pdo);
+            self::$instance = new Buku($pdo);
         }
         return self::$instance;
     }
 
-    // function for menambahkan buku dimulaiiiii 
+    // Function to add a book
     public function add($judul, $pengarang, $penerbit)
     {
         try {
@@ -29,11 +29,13 @@ class buku
             $stmt->execute();
             return true;
         } catch (PDOException $e) {
-            echo $e->getMessage();
+            // Logging error to a file or handling error properly in production
+            error_log($e->getMessage());
             return false;
         }
     }
 
+    // Function to get book by ID
     public function getID($id_buku)
     {
         try {
@@ -42,17 +44,17 @@ class buku
             $data = $stmt->fetch(PDO::FETCH_ASSOC);
             return $data;
         } catch (PDOException $e) {
-            echo $e->getMessage();
+            // Logging error to a file or handling error properly in production
+            error_log($e->getMessage());
             return false;
         }
     }
-    // function for tambah buku doneee
 
-    // function for mengedit buku dimulaiiiii 
+    // Function to edit a book
     public function edit($id_buku, $judul, $pengarang, $penerbit)
     {
         try {
-            $stmt = $this->db->prepare("UPDATE pegawai SET nama = :nama, nisn = :nisn, alamat = :alamat, WHERE id_pegawai = :id_pegawai");
+            $stmt = $this->db->prepare("UPDATE buku SET judul = :judul, pengarang = :pengarang, penerbit = :penerbit WHERE id_buku = :id_buku");
             $stmt->bindParam(":id_buku", $id_buku);
             $stmt->bindParam(":judul", $judul);
             $stmt->bindParam(":pengarang", $pengarang);
@@ -60,13 +62,13 @@ class buku
             $stmt->execute();
             return true;
         } catch (PDOException $e) {
-            echo $e->getMessage();
+            // Logging error to a file or handling error properly in production
+            error_log($e->getMessage());
             return false;
         }
     }
-    // function for mengedit buku doneee
 
-    // function for menghapus buku dimulaiiiii 
+    // Function to delete a book
     public function hapus($id_buku)
     {
         try {
@@ -75,13 +77,13 @@ class buku
             $stmt->execute();
             return true;
         } catch (PDOException $e) {
-            echo $e->getMessage();
+            // Logging error to a file or handling error properly in production
+            error_log($e->getMessage());
             return false;
         }
     }
-    // function for menghapus buku doneee
 
-    // function for mendapatkan semua buku dimulaiiiii 
+    // Function to get all books
     public function getAll()
     {
         try {
@@ -90,10 +92,10 @@ class buku
             $data = $stmt->fetchAll(PDO::FETCH_ASSOC);
             return $data;
         } catch (PDOException $e) {
-            echo $e->getMessage();
+            // Logging error to a file or handling error properly in production
+            error_log($e->getMessage());
             return false;
         }
     }
-    // function for menampilkan semua buku doneee
 }
 ?>

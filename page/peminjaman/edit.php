@@ -5,7 +5,7 @@ if (empty($_GET['id_peminjaman'])) {
     exit();
 }
 include("../../database/koneksi.php");
-include("../../class/peminjaman.php");
+include("../../database/class/peminjaman.php");
 $id_peminjaman = $_GET['id_peminjaman'];
 $pdo = koneksi::connect();
 $peminjaman = peminjaman::getInstance($pdo);

@@ -56,7 +56,7 @@ if(isset($_POST['simpan'])){
    
 
     include("../../database/koneksi.php");
-    include("../../class/anggota.php");
+    include("../../database/class/anggota.php");
         $pdo = Koneksi::connect();
         $anggota = anggota::getInstance($pdo);
         if ($anggota->add($nama, $nisn, $Alamat, $tanggal_lahir)) {

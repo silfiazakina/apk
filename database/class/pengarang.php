@@ -1,6 +1,6 @@
 <?php
 
-class pengarang
+class Pengarang
 {
     private $db;
     private static $instance = null;
@@ -13,12 +13,12 @@ class pengarang
     public static function getInstance($pdo)
     {
         if (self::$instance == null) {
-            self::$instance = new pengarang($pdo);
+            self::$instance = new Pengarang($pdo);
         }
         return self::$instance;
     }
 
-    // function for menambahkan pengarang dimulaiiiii 
+    // Function to add a new author
     public function add($nama, $no_tlp)
     {
         try {
@@ -28,11 +28,13 @@ class pengarang
             $stmt->execute();
             return true;
         } catch (PDOException $e) {
-            echo $e->getMessage();
+            // Logging error to a file or handling error properly in production
+            error_log($e->getMessage());
             return false;
         }
     }
 
+    // Function to get author by ID
     public function getID($id_pengarang)
     {
         try {
@@ -41,30 +43,30 @@ class pengarang
             $data = $stmt->fetch(PDO::FETCH_ASSOC);
             return $data;
         } catch (PDOException $e) {
-            echo $e->getMessage();
+            // Logging error to a file or handling error properly in production
+            error_log($e->getMessage());
             return false;
         }
     }
-    // function for tambah pengarang doneee
 
-    // function for mengedit pengarang dimulaiiiii 
+    // Function to update author information
     public function edit($id_pengarang, $nama, $no_tlp)
     {
         try {
-            $stmt = $this->db->prepare("UPDATE pengarang SET nama = :nama, no_tlp = :no_tlp");
+            $stmt = $this->db->prepare("UPDATE pengarang SET id_pengarang = :id_pengarang, nama = :nama, no_tlp = :no_tlp WHERE id_pengarang = :id_pengarang");
             $stmt->bindParam(":id_pengarang", $id_pengarang);
             $stmt->bindParam(":nama", $nama);
             $stmt->bindParam(":no_tlp", $no_tlp);
             $stmt->execute();
             return true;
         } catch (PDOException $e) {
-            echo $e->getMessage();
+            // Logging error to a file or handling error properly in production
+            error_log($e->getMessage());
             return false;
         }
     }
-    // function for mengedit pengarang doneee
 
-    // function for menghapus pengarang dimulaiiiii 
+    // Function to delete an author
     public function hapus($id_pengarang)
     {
         try {
@@ -73,13 +75,13 @@ class pengarang
             $stmt->execute();
             return true;
         } catch (PDOException $e) {
-            echo $e->getMessage();
+            // Logging error to a file or handling error properly in production
+            error_log($e->getMessage());
             return false;
         }
     }
-    // function for menghapus pengarang doneee
 
-    // function for mendapatkan semua pengarang dimulaiiiii 
+    // Function to get all authors
     public function getAll()
     {
         try {
@@ -88,10 +90,10 @@ class pengarang
             $data = $stmt->fetchAll(PDO::FETCH_ASSOC);
             return $data;
         } catch (PDOException $e) {
-            echo $e->getMessage();
+            // Logging error to a file or handling error properly in production
+            error_log($e->getMessage());
             return false;
         }
     }
-    // function for menampilkan semua pengarang doneee
 }
 ?>

@@ -22,17 +22,25 @@ class pegawai
     public function add($nama, $nisn, $alamat)
     {
         try {
+            // Prepare the SQL statement
             $stmt = $this->db->prepare("INSERT INTO pegawai (nama, nisn, alamat) VALUES (:nama, :nisn, :alamat)");
+            
+            // Bind parameters
             $stmt->bindParam(":nama", $nama);
             $stmt->bindParam(":nisn", $nisn);
             $stmt->bindParam(":alamat", $alamat);
+            
+            // Execute the statement
             $stmt->execute();
+            
             return true;
         } catch (PDOException $e) {
+            // Handle errors
             echo $e->getMessage();
             return false;
         }
     }
+    
 
     public function getID($id_pegawai)
     {
@@ -49,21 +57,22 @@ class pegawai
     // function for tambah pegawai doneee
 
     // function for mengedit pegawai dimulaiiiii 
-    public function edit($id_pegawai, $nama, $nisn, $alamat,)
-    {
-        try {
-            $stmt = $this->db->prepare("UPDATE pegawai SET nama = :nama, nisn = :nisn, alamat = :alamat WHERE id_pegawai = :id_pegawai");
-            $stmt->bindParam(":id_pegawai", $id_pegawai);
-            $stmt->bindParam(":nama", $nama);
-            $stmt->bindParam(":nisn", $nisn);
-            $stmt->bindParam(":alamat", $alamat);
-            $stmt->execute();
-            return true;
-        } catch (PDOException $e) {
-            echo $e->getMessage();
-            return false;
-        }
+    public function edit($id_pegawai, $nama, $nisn, $alamat)
+{
+    try {
+        $stmt = $this->db->prepare("UPDATE pegawai SET id_pegawai = :id_pegawai, nama = :nama, nisn = :nisn, alamat = :alamat WHERE id_pegawai = :id_pegawai");
+        $stmt->bindParam(":id_pegawai", $id_pegawai);
+        $stmt->bindParam(":nama", $nama);
+        $stmt->bindParam(":nisn", $nisn);
+        $stmt->bindParam(":alamat", $alamat);
+        $stmt->execute();
+        return true;
+    } catch (PDOException $e) {
+        echo $e->getMessage();
+        return false;
     }
+}
+
     // function for mengedit pegawai doneee
 
     // function for menghapus pegawai dimulaiiiii 

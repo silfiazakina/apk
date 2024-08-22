@@ -5,7 +5,7 @@ if (empty ($_GET['id_anggota'])) {
     exit();
 }
 include("../../database/koneksi.php");
-include("../../class/anggota.php");
+include("../../database/class/anggota.php");
 $id_anggota = $_GET['id_anggota'];
 $pdo = koneksi::connect();
 $anggota = anggota::getInstance($pdo);

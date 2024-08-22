@@ -27,7 +27,7 @@
                 <tbody>
                 <?php
                         include("../../database/koneksi.php");
-                        include("../../class/peminjaman.php");
+                        include("../../database/class/peminjaman.php");
                         $pdo = koneksi::connect();
                         $peminjaman = peminjaman::getInstance($pdo);
                         $dataPeminjaman = $peminjaman->getAll();

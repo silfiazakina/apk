@@ -27,7 +27,7 @@
                 <tbody>
                 <?php
                         include("../../database/koneksi.php");
-                        include("../../class/buku.php");
+                        include("../../database/class/buku.php");
                         $pdo = koneksi::connect();
                         $buku = buku::getInstance($pdo);
                         $dataBuku = $buku->getAll();

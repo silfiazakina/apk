@@ -18,7 +18,7 @@ class peminjaman
         return self::$instance;
     }
 
-    // function for menambahkan peminjaman dimulaiiiii 
+    // Function to add a loan
     public function add($nama, $nisn, $alamat)
     {
         try {
@@ -29,7 +29,8 @@ class peminjaman
             $stmt->execute();
             return true;
         } catch (PDOException $e) {
-            echo $e->getMessage();
+            // Log the error message
+            error_log($e->getMessage());
             return false;
         }
     }
@@ -42,17 +43,17 @@ class peminjaman
             $data = $stmt->fetch(PDO::FETCH_ASSOC);
             return $data;
         } catch (PDOException $e) {
-            echo $e->getMessage();
+            // Log the error message
+            error_log($e->getMessage());
             return false;
         }
     }
-    // function for tambah peminjaman doneee
 
-    // function for mengedit peminjaman dimulaiiiii 
+    // Function to edit a loan
     public function edit($id_peminjaman, $nama, $nisn, $alamat)
     {
         try {
-            $stmt = $this->db->prepare("UPDATE peminjaman SET nama = :nama, nisn = :nisn, alamat = :alamat  WHERE id_peminjaman = :id_peminjaman");
+            $stmt = $this->db->prepare("UPDATE peminjaman SET nama = :nama, nisn = :nisn, alamat = :alamat WHERE id_peminjaman = :id_peminjaman");
             $stmt->bindParam(":id_peminjaman", $id_peminjaman);
             $stmt->bindParam(":nama", $nama);
             $stmt->bindParam(":nisn", $nisn);
@@ -60,43 +61,40 @@ class peminjaman
             $stmt->execute();
             return true;
         } catch (PDOException $e) {
-            echo $e->getMessage();
-            return false;
+            // Log the error message
+            error_log($e->getMessage());
+            return false; 
         }
     }
-    //function for mengedit peminjaman doneee
 
-    // function for menghapus peminjaman dimulaiiiii 
-    public function hapus($id_peminjaman, $nama, $nisn, $alamat)
+    // Function to delete a loan
+    public function hapus($id_peminjaman)
     {
         try {
-            $stmt = $this->db->prepare("DELETE FROM anggota WHERE id_anggota = :id_anggota");
+            $stmt = $this->db->prepare("DELETE FROM peminjaman WHERE id_peminjaman = :id_peminjaman");
             $stmt->bindParam(":id_peminjaman", $id_peminjaman);
-            $stmt->bindParam(":nama", $nama);
-            $stmt->bindParam(":nisn", $nisn);
-            $stmt->bindParam(":alamat", $alamat);
             $stmt->execute();
             return true;
         } catch (PDOException $e) {
-            echo $e->getMessage();
+            // Log the error message
+            error_log($e->getMessage());
             return false;
         }
     }
-    // function for menghapus peminjaman doneee
 
-    // function for mendapatkan semua peminjaman dimulaiiiii 
+    // Function to get all loans
     public function getAll()
-    {
+    { 
         try {
             $stmt = $this->db->prepare("SELECT * FROM peminjaman");
             $stmt->execute();
             $data = $stmt->fetchAll(PDO::FETCH_ASSOC);
             return $data;
         } catch (PDOException $e) {
-            echo $e->getMessage();
+            // Log the error message
+            error_log($e->getMessage());
             return false;
         }
     }
-    // function for menampilkan semua peminjaman doneee
 }
 ?>

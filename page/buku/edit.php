@@ -5,23 +5,23 @@ if (empty ($_GET['id_buku'])) {
     exit();
 }
 include("../../database/koneksi.php");
-include("../../class/buku.php");
+include("../../database/class/buku.php");
 $id_buku = $_GET['id_buku'];
 $pdo = koneksi::connect();
 $buku = buku::getInstance($pdo);
 
 if (isset($_POST['simpan'])) {
 
-    $juduk= $_POST['judul'];
+    $judul= $_POST['judul'];
     $pengarang = $_POST['pengarang'];
     $penerbit = $_POST['penerbit'];
 
     
    
-    $result = $buku->edit($id_anggota, $judul, $pengarang, $penerbit);
+    $result = $buku->edit($id_buku, $judul, $pengarang, $penerbit);
     
     if ($result) {
-        echo "<script>window.location.href = 'index.php?page=buku0'</script>";
+        echo "<script>window.location.href = 'index.php?page=buku'</script>";
         exit();
     } else {
         echo "Terjadi kesalahan saat menyimpan data.";
@@ -31,16 +31,15 @@ if (isset($_POST['simpan'])) {
 
    
 }
-    $data = $anggota->getID($id_anggota);
+    $data = $buku->getID($id_buku);
     if (!$data) {
-    echo "<script>window.location.href = 'index.php?page=anggota'</script>";
+    echo "<script>window.location.href = 'index.php?page=buku'</script>";
     exit();
     }
 
-    $nama = $data['nama'];
-    $nisn = $data['nisn'];
-    $Alamat = $data['Alamat'];
-    $tanggal_lahir = $data['tanggal_lahir'];
+    $judul = $data['judul'];
+    $pengarang = $data['pengarang'];
+    $penerbit = $data['penerbit'];
 
 ?>
 <!DOCTYPE html>
@@ -48,35 +47,31 @@ if (isset($_POST['simpan'])) {
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Edit Anggota</title>
+    <title>Edit Buku</title>
     <!-- Bootstrap CSS -->
     <link href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
 </head>
 <body>
     <div class="container mt-5">
         <div class="mb-4">
-            <h3>Edit Anggota</h3>
+            <h3>Edit Data Buku</h3>
         </div>
         <form action="" method="post">
             <div class="form-group">
-                <label for="nama">Nama</label>
-                <input id="nama" name="nama" type="text" class="form-control" placeholder="Masukkan nama" value="<?php echo htmlspecialchars($nama); ?>" required>
+                <label for="judul">Judul</label>
+                <input id="judul" name="judul" type="text" class="form-control" placeholder="Masukkan judul buku" value="<?php echo htmlspecialchars($judul); ?>" required>
             </div>
             <div class="form-group">
-                <label for="nisn">NISN</label>
-                <input id="nisn" name="nisn" type="text" class="form-control" placeholder="Masukkan nisn" value="<?php echo htmlspecialchars($nisn); ?>" required>
+                <label for="pengarang">Pengarang</label>
+                <input id="pengarangn" name="pengarang" type="text" class="form-control" placeholder="Masukkan nama pengarang" value="<?php echo htmlspecialchars($pengarang); ?>" required>
             </div>
              <div class="form-group">
-                <label for="Alamat">Alamat</label>
-                <input id="Alamat" name="Alamat" type="text" class="form-control" placeholder="Masukkan Alamat" value="<?php echo htmlspecialchars($Alamat); ?>" required>
-            </div>
-            <div class="form-group">
-                <label for="tanggal_lahir">Tanggal lahir</label>
-                <input id="tanggal_lahir" name="tanggal_lahir" type="text" class="form-control" placeholder="Masukkan tanggal lahir" value="<?php echo htmlspecialchars($tanggal_lahir); ?>" required>
+                <label for="penerbit">Penerbit</label>
+                <input id="penerbit" name="penerbit" type="text" class="form-control" placeholder="Masukkan nama penerbit" value="<?php echo htmlspecialchars($penerbit); ?>" required>
             </div>
             <div class="form-group">
                 <button type="submit" name="simpan" class="btn btn-primary">Simpan</button>
-                <a href="index.php?page=anggota" class="btn btn-secondary">Kembali</a>
+                <a href="index.php?page=buku" class="btn btn-secondary">Kembali</a>
             </div>
         </form>
     </div>

@@ -1,6 +1,6 @@
 <?php
 include("../../database/koneksi.php");
-include("../../class/buku.php");
+include("../../database/class/buku.php");
 
 $act = isset($_GET['act']) ? $_GET['act'] : '';
 switch ($act) {

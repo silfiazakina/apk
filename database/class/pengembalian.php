@@ -1,6 +1,6 @@
 <?php
 
-class pengembalian
+class Pengembalian
 {
     private $db;
     private static $instance = null;
@@ -12,24 +12,25 @@ class pengembalian
 
     public static function getInstance($pdo)
     {
-        if (self::$instance == null) {
-            self::$instance = new pengembalian($pdo);
+        if (self::$instance === null) {
+            self::$instance = new Pengembalian($pdo);
         }
         return self::$instance;
     }
 
-    // function for menambahkan pengembalian dimulaiiiii 
-    public function add($nama, $nisn, $tanggal_pengembalian )
+    // Function for adding pengembalian
+    public function add($nama, $nisn, $tanggal_pengembalian)
     {
         try {
-            $stmt = $this->db->prepare("INSERT INTO pengembalian (nama, nisn, tanggal_pengembalian ) VALUES (:nama, :nisn, :tanggal_pengembalian )");
+            $stmt = $this->db->prepare("INSERT INTO pengembalian (nama, nisn, tanggal_pengembalian) VALUES (:nama, :nisn, :tanggal_pengembalian)");
             $stmt->bindParam(":nama", $nama);
             $stmt->bindParam(":nisn", $nisn);
             $stmt->bindParam(":tanggal_pengembalian", $tanggal_pengembalian);
             $stmt->execute();
             return true;
         } catch (PDOException $e) {
-            echo $e->getMessage();
+            // Log the error message
+            error_log($e->getMessage());
             return false;
         }
     }
@@ -42,49 +43,46 @@ class pengembalian
             $data = $stmt->fetch(PDO::FETCH_ASSOC);
             return $data;
         } catch (PDOException $e) {
-            echo $e->getMessage();
+            // Log the error message
+            error_log($e->getMessage());
             return false;
         }
     }
-    // function for tambah pengembalian doneee
 
-    // function for mengedit pengembalian dimulaiiiii 
+    // Function for editing pengembalian
     public function edit($id_pengembalian, $nama, $nisn, $tanggal_pengembalian)
     {
         try {
-            $stmt = $this->db->prepare("UPDATE anggota SET nama = :nama, nisn = :nisn, tanggal_pengembalian = :tanggal_pengembalian, WHERE id_pengembalian = :id_pengembalian");
+            $stmt = $this->db->prepare("UPDATE pengembalian SET nama = :nama, nisn = :nisn, tanggal_pengembalian = :tanggal_pengembalian WHERE id_pengembalian = :id_pengembalian");
             $stmt->bindParam(":id_pengembalian", $id_pengembalian);
             $stmt->bindParam(":nama", $nama);
             $stmt->bindParam(":nisn", $nisn);
-            $stmt->bindParam(":tanggal_pengembalian", $tanggal_pengembalian);
+            $stmt->bindParam(":tanggal_pengembalian", $tanggal_pengembalian); // Fixed typo here
             $stmt->execute();
             return true;
         } catch (PDOException $e) {
-            echo $e->getMessage();
+            // Log the error message
+            error_log($e->getMessage());
             return false;
         }
     }
-    //function for mengedit pengembalian doneee
 
-    // function for menghapus pengembalian dimulaiiiii 
-    public function hapus($id_pengembalian, $nama, $nisn, $tanggal_pengembalian)
+    // Function for deleting pengembalian
+    public function hapus($id_pengembalian)
     {
         try {
             $stmt = $this->db->prepare("DELETE FROM pengembalian WHERE id_pengembalian = :id_pengembalian");
             $stmt->bindParam(":id_pengembalian", $id_pengembalian);
-            $stmt->bindParam(":nama", $nama);
-            $stmt->bindParam(":nisn", $nisn);
-            $stmt->bindParam(":tanggal_pengembalian", $tanggal_pengembalian);
             $stmt->execute();
             return true;
         } catch (PDOException $e) {
-            echo $e->getMessage();
+            // Log the error message
+            error_log($e->getMessage());
             return false;
         }
     }
-    // function for menghapus pengembalian doneee
 
-    // function for mendapatkan semua pengembalian dimulaiiiii 
+    // Function for getting all pengembalian
     public function getAll()
     {
         try {
@@ -93,10 +91,10 @@ class pengembalian
             $data = $stmt->fetchAll(PDO::FETCH_ASSOC);
             return $data;
         } catch (PDOException $e) {
-            echo $e->getMessage();
+            // Log the error message
+            error_log($e->getMessage());
             return false;
         }
     }
-    // function for menampilkan semua pengembalian doneee
 }
 ?>

@@ -1,18 +1,20 @@
 <?php
 include("../../database/koneksi.php");
 include("../../class/pengembalian.php");
+
+
+$valid_actions = ['tambah', 'edit', 'hapus'];
 $act = isset($_GET['act']) ? $_GET['act'] : '';
-switch ($act) {
-    case 'tambah':
-        include 'tambah.php';
-        break;
-    case 'edit':
-        include 'edit.php';
-        break;
-    case 'hapus':
-        include 'hapus.php';
-        break;
-    default:
+
+if (in_array($act, $valid_actions)) {
+    
+    $file = __DIR__ . '/' . $act . '.php';
+    if (file_exists($file)) {
+        include $file;
+    } else {
         include 'index.php';
-        break;
+    }
+} else {
+    include 'index.php';
 }
+?>

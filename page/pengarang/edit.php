@@ -5,7 +5,7 @@ if (empty($_GET['id_pengarang'])) {
     exit();
 }
 include("../../database/koneksi.php");
-include("../../class/pengarang.php");
+include("../../database/class/pengarang.php");
 $id_pengarang = $_GET['id_pengarang'];
 $pdo = koneksi::connect();
 $pengarang = pengarang::getInstance($pdo);
@@ -17,7 +17,7 @@ if (isset($_POST['simpan'])) {
 
     
    
-    $result = $pengarang->edit($id_pengarang, $nama, $no_tlp, );
+    $result = $pengarang->edit($id_pengarang, $nama, $no_tlp);
     
     if ($result) {
         echo "<script>window.location.href = 'index.php?page=pengarang'</script>";
@@ -30,7 +30,7 @@ if (isset($_POST['simpan'])) {
 
    
 }
-    $data = $penerbit->getID($id_penerbit);
+    $data = $pengarang->getID($id_pengarang);
     if (!$data) {
     echo "<script>window.location.href = 'index.php?page=pengarang'</script>";
     exit();
@@ -52,7 +52,7 @@ if (isset($_POST['simpan'])) {
 <body>
     <div class="container mt-5">
         <div class="mb-4">
-            <h3>Edit Pengarang</h3>
+            <h3>Edit Data Pengarang</h3>
         </div>
         <form action="" method="post">
             <div class="form-group">

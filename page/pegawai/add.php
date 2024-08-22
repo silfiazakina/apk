@@ -14,11 +14,11 @@
         <form action="" method="post">
             <div class="form-group">
                 <label for="nama">Nama</label>
-                <input type="text" id="nama" name="nama" class="form-control" placeholder=" Masukkan Nama Pegawai" required>
+                <input type="text" id="nama" name="nama" class="form-control" placeholder="Masukkan Nama Pegawai" required>
             </div>
             <div class="form-group">
                 <label for="nisn">NISN</label>
-                <input type="text" id="nisn" name="nisn" class="form-control" placeholder="Masukkan Nisn" required>
+                <input type="text" id="nisn" name="nisn" class="form-control" placeholder="Masukkan NISN" required>
             </div>
             <div class="form-group">
                 <label for="alamat">Alamat</label>
@@ -40,25 +40,27 @@
 </body>
 </html>
 
-
 <?php
 if (isset($_POST['simpan'])) {
     $nama = $_POST['nama'];
     $nisn = $_POST['nisn'];
     $alamat = $_POST['alamat'];
 
-   
-     
-     // Mengatur mode error PDO
-      include("../../database/koneksi.php");
-      include("../../class/pegawai.php");
-    $pdo = koneksi::connect();
-    $pegawai = pegawai::getInstance($pdo);
-    if ($pegawai->add($nama, $nisn, $alamat,)) {
-    echo "<script>window.location.href = 'index.php'</script>";
-    } else {
-    echo "Terjadi kesalahan saat menyimpan data.";
+    try {
+        include("../../database/koneksi.php");
+        include("../../database/class/pegawai.php");
+
+        $pdo = koneksi::connect();
+        $pegawai = pegawai::getInstance($pdo);
+
+        if ($pegawai->add($nama, $nisn, $alamat)) {
+            echo "<script>window.location.href = 'index.php'</script>";
+        } else {
+            echo "Terjadi kesalahan saat menyimpan data.";
+        }
+    } catch (Exception $e) {
+        // Tangani kesalahan jika terjadi kesalahan lain
+        echo "Terjadi kesalahan: " . $e->getMessage();
     }
-} 
-        
+}
 ?>

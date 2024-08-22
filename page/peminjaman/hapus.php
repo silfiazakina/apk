@@ -1,12 +1,22 @@
 <?php
+include("../../database/koneksi.php");
+include("../../database/class/peminjaman.php");
 
- if(empty($_GET['id_peminjaman'])) header("Location: index.php");
 
- $id_anggota = $_GET['id_peminjaman'];
+if (empty($_GET['id_peminjaman'])) {
+    echo "<script>window.location.href = 'index.php?page=peminjaman'</script>";
+    exit();
+}
 
-        $pdo = koneksi::connect();
-        $sql = "DELETE FROM peminjaman WHERE id_peminjaman = ?";
-        $q = $pdo->prepare($sql);
-        $q->execute(array($id_anggota));
-        koneksi::connect();
-        echo "<script> window.location.href = 'index.php?page=peminjaman' </script> ";
+$id_peminjaman = $_GET['id_peminjaman'];
+$pdo = koneksi::connect();
+$peminjaman = peminjaman::getInstance($pdo);
+$result = $peminjaman->hapus($id_peminjaman);
+
+if ($result) {
+    echo "<script>window.location.href = 'index.php?page=peminjaman'</script>";
+    exit();
+} else {
+    echo "Terjadi kesalahan saat menghapus data.";
+}
+?>

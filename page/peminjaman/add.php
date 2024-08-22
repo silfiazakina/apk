@@ -50,7 +50,7 @@ if(isset($_POST['simpan'])){
    
 
     include("../../database/koneksi.php");
-    include("../../class/peminjaman.php");
+    include("../../database/class/peminjaman.php");
         $pdo = Koneksi::connect();
         $peminjaman = peminjaman::getInstance($pdo);
         if ($peminjaman->add($nama, $nisn, $alamat, )) {

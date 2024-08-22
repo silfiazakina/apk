@@ -27,7 +27,7 @@
                 <tbody>
                 <?php
                         include("../../database/koneksi.php");
-                        include("../../class/pegawai.php");
+                        include("../../database/class/pegawai.php");
                         $pdo = koneksi::connect();
                         $pegawai = pegawai::getInstance($pdo);
                         $dataPegawai = $pegawai->getAll();

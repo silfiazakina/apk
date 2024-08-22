@@ -1,11 +1,11 @@
 <?php 
 
-if (empty($_GET['id_pengembalian'])) {
+if (empty ($_GET['id_pengembalian'])) {
     echo "<script> window.location.href = 'index.php?page=pengembalian' </script> ";
     exit();
 }
 include("../../database/koneksi.php");
-include("../../class/pengembalian.php");
+include("../../database/class/pengembalian.php");
 $id_pengembalian = $_GET['id_pengembalian'];
 $pdo = koneksi::connect();
 $pengembalian = pengembalian::getInstance($pdo);
@@ -14,11 +14,11 @@ if (isset($_POST['simpan'])) {
 
     $nama = $_POST['nama'];
     $nisn = $_POST['nisn'];
-    $tanggal_lahir = $_POST['tanggal_pengembalian'];
+    $tanggal_pengebalian = $_POST['tanggal_pengembalian'];
 
     
    
-    $result = $pengembalian->edit($id_pengembalian, $nama, $nisn, $tanggal_pengembalian);
+    $result = $pengembalian->edit($id_pengembalian, $nama, $nisn, $tanggal_lahir);
     
     if ($result) {
         echo "<script>window.location.href = 'index.php?page=pengembalian'</script>";
@@ -54,7 +54,7 @@ if (isset($_POST['simpan'])) {
 <body>
     <div class="container mt-5">
         <div class="mb-4">
-            <h3>Edit Pengembalian</h3>
+            <h3>Edit Data Pengembalian</h3>
         </div>
         <form action="" method="post">
             <div class="form-group">
@@ -66,8 +66,8 @@ if (isset($_POST['simpan'])) {
                 <input id="nisn" name="nisn" type="text" class="form-control" placeholder="Masukkan nisn" value="<?php echo htmlspecialchars($nisn); ?>" required>
             </div>
             <div class="form-group">
-                <label for="tanggal_pengembalian">Tanggal kembali</label>
-                <input id="tanggal_pengembalian" name="tanggal_pengembalian" type="text" class="form-control" placeholder="Masukkan tanggal Kembali" value="<?php echo htmlspecialchars($tanggal_pengembalian); ?>" required>
+                <label for="tanggal_pengembalian">Tanggal Kembali</label>
+                <input id="tanggal_pengembalian" name="tanggal_pengembalian" type="text" class="form-control" placeholder="Masukkan pengembalian" value="<?php echo htmlspecialchars($tanggal_pengembalian); ?>" required>
             </div>
             <div class="form-group">
                 <button type="submit" name="simpan" class="btn btn-primary">Simpan</button>

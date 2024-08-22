@@ -1,12 +1,22 @@
 <?php
+include("../../database/koneksi.php");
+include("../../class/pengembalian.php");
 
- if(empty($_GET['id_pengembalian'])) header("Location: index.php");
+if (empty($_GET['id_pengembalian'])) {
+    echo "<script> window.location.href = 'index.php?page=pengembalian' </script>";
+    exit();
+}
 
- $id_pengembalian = $_GET['id_pengembalian'];
+$id_pengembalian = $_GET['id_pengembalian'];
+$pdo = koneksi::connect();
+$pengembalian = pengembalian::getInstance($pdo);
 
-        $pdo = koneksi::connect();
-        $sql = "DELETE FROM pengembalian WHERE id_pengembalian = ?";
-        $q = $pdo->prepare($sql);
-        $q->execute(array($id_anggota));
-        koneksi::connect();
-        echo "<script> window.location.href = 'index.php?page=pengembalian' </script> ";
+$result = $pengembalian->hapus($id_pengembalian);
+
+if ($result) {
+    echo "<script>window.location.href = 'index.php?page=pengembalian'</script>";
+    exit();
+} else {
+    echo "Terjadi kesalahan saat menghapus data.";
+}
+?>

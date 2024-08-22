@@ -26,7 +26,7 @@
                 <tbody>
                 <?php
                         include("../../database/koneksi.php");
-                        include("../../class/pengarang.php");
+                        include("../../database/class/pengarang.php");
                         $pdo = koneksi::connect();
                         $pengarang = pengarang::getInstance($pdo);
                         $dataPengarang = $pengarang->getAll();
@@ -39,7 +39,7 @@
                             <td><?php echo htmlspecialchars($row['no_tlp']); ?></td>
                             <td>
 
-                                <a  href="edit.php?page=pengarang&act=edit" class="btn btn-primary=<?php echo $row['id_pengarang']?>" class="btn btn-warning btn-sm">
+                            <a href="edit.php?page=pengarang&act=edit&id_pengarang=<?php echo $row['id_pengarang'] ?>" class="btn btn-warning btn-sm">
                                 <i class="fas fa-edit"></i> Edit
                             </a>
                                 <a href="hapus.php?page=pengarang&act=hapus&id_pengarang=<?php echo $row['id_pengarang']?>" class="btn btn-danger btn-sm" onclick="return confirm('Apakah anda ingin menghapus data ini?')">

@@ -46,7 +46,7 @@ if(isset($_POST['simpan'])){
     
 
     include("../../database/koneksi.php");
-    include("../../class/pengarang.php");
+    include("../../database/class/pengarang.php");
         $pdo = Koneksi::connect();
         $pengarang = pengarang::getInstance($pdo);
         if ($pengarang->add($nama, $no_tlp)) {

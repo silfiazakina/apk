@@ -5,7 +5,7 @@ if (empty($_GET['id_pegawai'])) {
     exit();
 }
 include("../../database/koneksi.php");
-include("../../class/pegawai.php");
+include("../../database/class/pegawai.php");
 $id_pegawai = $_GET['id_pegawai'];
 $pdo = koneksi::connect();
 $pegawai = pegawai::getInstance($pdo);
@@ -60,11 +60,11 @@ if (isset($_POST['simpan'])) {
         <form action="" method="POST">
             <div class="form-group">
                 <label for="nama">Nama</label>
-                <input id="nama" name="nama" type="text" class="form-control" placeholder="Masukkan nama" value="<?php echo htmlspecialchars($nama); ?>" required>
+                <input id="nama" name="nama" type="text" class="form-control" placeholder="Masukkan Nama" value="<?php echo htmlspecialchars($nama); ?>" required>
             </div>
             <div class="form-group">
                 <label for="nisn">NISN</label>
-                <input id="nisn" name="nisn" type="text" class="form-control" placeholder="Masukkan nisn" value="<?php echo htmlspecialchars($nisn); ?>" required>
+                <input id="nisn" name="nisn" type="text" class="form-control" placeholder="Masukkan Nisn" value="<?php echo htmlspecialchars($nisn); ?>" required>
             </div>
              <div class="form-group">
                 <label for="alamat">Alamat</label>
