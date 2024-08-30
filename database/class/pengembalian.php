@@ -1,6 +1,6 @@
 <?php
 
-class Pengembalian
+class pengembalian
 {
     private $db;
     private static $instance = null;
@@ -12,8 +12,8 @@ class Pengembalian
 
     public static function getInstance($pdo)
     {
-        if (self::$instance === null) {
-            self::$instance = new Pengembalian($pdo);
+        if (self::$instance == null) {
+            self::$instance = new pengembalian($pdo);
         }
         return self::$instance;
     }
@@ -29,8 +29,7 @@ class Pengembalian
             $stmt->execute();
             return true;
         } catch (PDOException $e) {
-            // Log the error message
-            error_log($e->getMessage());
+            echo $e->getMessage();
             return false;
         }
     }
@@ -38,13 +37,12 @@ class Pengembalian
     public function getID($id_pengembalian)
     {
         try {
-            $stmt = $this->db->prepare("SELECT * FROM pengembalian WHERE id_pengembalian = :id_pengembalian");
+            $stmt = $this->db->prepare("SELECT * FROM pengembalian WHERE id_pengambalian = :id_pengembalian");
             $stmt->execute(array(":id_pengembalian" => $id_pengembalian));
             $data = $stmt->fetch(PDO::FETCH_ASSOC);
             return $data;
         } catch (PDOException $e) {
-            // Log the error message
-            error_log($e->getMessage());
+            echo $e->getMessage();
             return false;
         }
     }
@@ -53,15 +51,15 @@ class Pengembalian
     public function edit($id_pengembalian, $nama, $nisn, $tanggal_pengembalian)
     {
         try {
-            $stmt = $this->db->prepare("UPDATE pengembalian SET nama = :nama, nisn = :nisn, tanggal_pengembalian = :tanggal_pengembalian WHERE id_pengembalian = :id_pengembalian");
+            $stmt = $this->db->prepare("UPDATE pengembalian SET id_pengembalian = :id_pengembalian, nama = :nama, nisn = :nisn, tanggal_pengembalian = :tanggal_pengembalian WHERE id_pengembalian = :id_pengembalian");
             $stmt->bindParam(":id_pengembalian", $id_pengembalian);
             $stmt->bindParam(":nama", $nama);
             $stmt->bindParam(":nisn", $nisn);
-            $stmt->bindParam(":tanggal_pengembalian", $tanggal_pengembalian); // Fixed typo here
+            $stmt->bindParam(":tanggal_pengembalian", $tanggal_pengembalian);
             $stmt->execute();
             return true;
         } catch (PDOException $e) {
-            // Log the error message
+            // Logging error to a file or handling error properly in production
             error_log($e->getMessage());
             return false;
         }
@@ -71,13 +69,12 @@ class Pengembalian
     public function hapus($id_pengembalian)
     {
         try {
-            $stmt = $this->db->prepare("DELETE FROM pengembalian WHERE id_pengembalian = :id_pengembalian");
+            $stmt = $this->db->prepare("DELETE FROM pengembalian WHERE id_pengambalian = :id_pengambalian");
             $stmt->bindParam(":id_pengembalian", $id_pengembalian);
             $stmt->execute();
             return true;
         } catch (PDOException $e) {
-            // Log the error message
-            error_log($e->getMessage());
+            echo $e->getMessage();
             return false;
         }
     }
@@ -91,8 +88,7 @@ class Pengembalian
             $data = $stmt->fetchAll(PDO::FETCH_ASSOC);
             return $data;
         } catch (PDOException $e) {
-            // Log the error message
-            error_log($e->getMessage());
+            echo $e->getMessage();
             return false;
         }
     }

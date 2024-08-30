@@ -42,9 +42,9 @@
                         
 
                             <td>
-                                <a href="edit.php?page=peminjaman&act=edit&id_peminjaman=<?php echo $row['id_peminjaman'] ?>" class="btn btn-warning btn-sm">
-                                <i class="fas fa-edit"></i> Edit
-                            </a>
+                            <a href="edit.php?page=peminjaman&act=edit&id_peminjaman=<?php echo urlencode($row['id_peminjaman']); ?>" class="btn btn-warning btn-sm">
+                            <i class="fas fa-edit"></i> Edit
+                        </a>
                                 <a href="hapus.php?page=peminjaman&act=hapus&id_peminjaman=<?php echo $row['id_peminjaman'] ?>" class="btn btn-danger btn-sm" onclick="return confirm('Apakah anda ingin menghapus data ini?')">
                                 <i class="fas fa-trash"></i> Hapus
                              </a>

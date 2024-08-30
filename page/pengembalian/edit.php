@@ -14,11 +14,11 @@ if (isset($_POST['simpan'])) {
 
     $nama = $_POST['nama'];
     $nisn = $_POST['nisn'];
-    $tanggal_pengebalian = $_POST['tanggal_pengembalian'];
+    $tanggal_pengembalian = $_POST['tanggal_pengembalian'];
 
     
    
-    $result = $pengembalian->edit($id_pengembalian, $nama, $nisn, $tanggal_lahir);
+    $result = $pengembalian->edit($id_pengembalian, $nama, $nisn, $tanggal_pengembalian);
     
     if ($result) {
         echo "<script>window.location.href = 'index.php?page=pengembalian'</script>";
@@ -82,3 +82,14 @@ if (isset($_POST['simpan'])) {
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
 </body>
 </html>
+
+
+
+
+
+git init
+git add README.md
+git commit -m "first commit"
+git branch -M main
+git remote add origin https://github.com/silfiazakina/aplikasi_perpustakaan.git
+git push -u origin main  

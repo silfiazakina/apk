@@ -1,6 +1,6 @@
 <?php
 include("../../database/koneksi.php");
-include("../../class/pengembalian.php");
+include("../../database/class/pengembalian.php");
 
 if (empty($_GET['id_pengembalian'])) {
     echo "<script> window.location.href = 'index.php?page=pengembalian' </script>";
